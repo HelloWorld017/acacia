@@ -1,4 +1,5 @@
 # acacia
+![acacia 로고](http://i.imgur.com/7EHaoJ5.png)
 실시간 일본어 번역기
 
 ---
@@ -28,3 +29,7 @@ configurations/dictionary.json 을 편집하시면 됩니다.
 }
 ```
 의 형식으로 입력하시면 먼저 사전의 값으로 대체된 후에 번역됩니다.
+
+## 스크린샷
+![번역뷰어](http://i.imgur.com/Rj9U2rM.jpg)
+![설정창](http://i.imgur.com/J8kyd2D.jpg)
