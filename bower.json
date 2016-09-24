@@ -1,0 +1,28 @@
+{
+  "name": "acacia",
+  "description": "Watches clipboard update and translate as google, show to transparent window.",
+  "main": "index.js",
+  "authors": [
+    "HelloWorld017"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "md-color-picker": "^0.2.6",
+    "semantic": "^2.2.4",
+    "NanumBarunGothic": "^1.0.0",
+    "angular-cookies": "^1.5.8"
+  }
+}

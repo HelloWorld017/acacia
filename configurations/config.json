@@ -1,0 +1,20 @@
+{
+	"charaBorder": "#ffc107",
+	"charaBorderSize": 1,
+	"charaText": "#ffffff",
+	"charaToggle": true,
+	"charaFontName": "Nanum Barun Gothic",
+	"charaFontSize": 25,
+	"originalBorder": "#f44336",
+	"originalBorderSize": 0.2,
+	"originalText": "#ffffff",
+	"originalToggle": true,
+	"originalFontName": "Nanum Barun Gothic",
+	"originalFontSize": 12,
+	"scriptBorder": "#2196f3",
+	"scriptBorderSize": 0.2,
+	"scriptText": "#ffffff",
+	"scriptToggle": true,
+	"scriptFontName": "Nanum Barun Gothic",
+	"scriptFontSize": 12
+}

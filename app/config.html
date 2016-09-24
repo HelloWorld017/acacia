@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html ng-app="acacia">
+	<head>
+		<meta charset="utf-8">
+		<title>Acacia</title>
+
+		<link rel="stylesheet" href="../bower_components/NanumBarunGothic/nanumbarungothic.css">
+		<link rel="stylesheet" href="../bower_components/semantic/dist/semantic.min.css">
+		<link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
+		<link rel="stylesheet" href="../bower_components/md-color-picker/dist/mdColorPicker.min.css">
+		<link rel="stylesheet" href="./resources/css/config.css">
+
+		<style>
+			header {
+				padding: 10px 0;
+			}
+
+			body {
+				margin: 0 10px;
+			}
+
+			h3 {
+				margin-top: 5px;
+			}
+
+			md-input-container {
+				margin: 0 0 !important;
+			}
+
+			.md-color-picker-clear {
+				bottom: 22px !important;
+			}
+
+			.md-color-picker-preview {
+				top: 4px !important;
+			}
+
+			.config-input {
+				width: 100%;
+				margin-bottom: 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Acacia Setting</h1>
+		</header>
+
+		<main>
+			<section id="toggles" ng-controller="toggleControl">
+				<div class="ui slider checkbox">
+					<input type="checkbox" ng-model="clickToggle">
+					<label>창 너머 클릭 가능</label>
+				</div>
+			</section>
+
+			<nav class="ui secondary pointing tabular menu">
+				<div class="item" data-tab="chara-config">캐릭터명</div>
+				<div class="item" data-tab="script-config">본문</div>
+				<div class="item" data-tab="original-config">원문</div>
+			</nav>
+
+			<section id="texts" ng-controller="textControl">
+				<div class="ui tab" data-tab="chara-config">
+					<h1>캐릭터명</h1>
+					<div class="ui slider checkbox">
+						<input type="checkbox" ng-model="charaToggle">
+						<label>보여주기</label>
+					</div>
+					<h3>테두리</h3>
+					<div md-color-picker ng-model="charaBorder"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">테두리 크기</div>
+						<input type="number" ng-model="charaBorderSize">
+						<div class="ui basic label">px</div>
+					</div>
+
+					<h3>글씨</h3>
+					<div md-color-picker ng-model="charaText"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">글자 크기</div>
+						<input type="number" ng-model="charaFontSize">
+						<div class="ui basic label">pt</div>
+					</div>
+
+					<div class="ui labeled input config-input">
+						<div class="ui label">폰트 이름</div>
+						<input type="text" ng-model="charaFontName">
+					</div>
+				</div>
+
+				<div class="ui tab" data-tab="script-config">
+					<h1>본문</h1>
+					<div class="ui slider checkbox">
+						<input type="checkbox" ng-model="scriptToggle">
+						<label>보여주기</label>
+					</div>
+					<h3>테두리</h3>
+					<div md-color-picker ng-model="scriptBorder"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">테두리 크기</div>
+						<input type="number" ng-model="scriptBorderSize">
+						<div class="ui basic label">px</div>
+					</div>
+
+					<h3>글씨</h3>
+					<div md-color-picker ng-model="scriptText"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">글자 크기</div>
+						<input type="number" ng-model="scriptFontSize">
+						<div class="ui basic label">pt</div>
+					</div>
+
+					<div class="ui labeled input config-input">
+						<div class="ui label">폰트 이름</div>
+						<input type="text" ng-model="scriptFontName">
+					</div>
+				</div>
+
+				<div class="ui tab" data-tab="original-config">
+					<h1>원문</h1>
+					<div class="ui slider checkbox">
+						<input type="checkbox" ng-model="originalToggle">
+						<label>보여주기</label>
+					</div>
+					<h3>테두리</h3>
+					<div md-color-picker ng-model="originalBorder"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">테두리 크기</div>
+						<input type="number" ng-model="originalBorderSize">
+						<div class="ui basic label">px</div>
+					</div>
+
+					<h3>글씨</h3>
+					<div md-color-picker ng-model="originalText"></div>
+					<div class="ui labeled input config-input">
+						<div class="ui label">글자 크기</div>
+						<input type="number" ng-model="originalFontSize">
+						<div class="ui basic label">pt</div>
+					</div>
+
+					<div class="ui labeled input config-input">
+						<div class="ui label">폰트 이름</div>
+						<input type="text" ng-model="originalFontName">
+					</div>
+				</div>
+			</section>
+		</main>
+		<script>
+			const {ipcRenderer} = require('electron');
+		</script>
+
+		<script src="../bower_components/angular/angular.min.js"></script>
+		<script src="../bower_components/angular-route/angular-route.min.js"></script>
+		<script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+		<script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+		<script src="../bower_components/angular-material/angular-material.min.js"></script>
+		<script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+		<script>window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery.min.js');</script>
+		<script>window.tinycolor = require('../bower_components/tinycolor/dist/tinycolor-min.js');</script>
+		<script src="../bower_components/semantic/dist/semantic.min.js"></script>
+		<script src="../bower_components/md-color-picker/dist/mdColorPicker.min.js"></script>
+		<script src="./resources/js/config.js"></script>
+	</body>
+</html>
