@@ -1,7 +1,7 @@
 {
   "name": "acacia",
   "productName": "Acacia",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Watches clipboard update and translate as google, show to transparent window.",
   "license": "MIT",
   "repository": "HelloWorld017/acacia",

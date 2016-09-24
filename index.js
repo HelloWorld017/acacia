@@ -87,10 +87,13 @@ let processUpdate = () => {
 		lastTime = Date.now();
 
 		//let split = rtext.split(/(?:\r\n|\n|\r)/g);
-		let split = rtext.split(/(\s|[＂（［｛‘“〔〈《「『【])/g);
+		let split = rtext.split(/(\s|[＂（［｛‘“〔〈《「『【])/);
 		let charaName = (split.length >= 3 && charaDB[split[0]] !== undefined) ? split.shift() : '';
-		let text = rtext.replace(charaName, '');
-		charaName = charaDB[charaName];
+		let text = rtext;
+		if(charaName !== ''){
+			text = text.replace(charaName, '');
+			charaName = charaDB[charaName];
+		}
 
 		charaDBKeys.forEach((k) => {
 			text = text.split(k).join(charaDB[k]);
@@ -100,7 +103,7 @@ let processUpdate = () => {
 			text = text.split(k).join(dict[k]);
 		});
 
-		translate(rtext, {from: 'ja', to: 'ko'}).then((translation) => {
+		translate(text, {from: 'ja', to: 'ko'}).then((translation) => {
 			if(mainWindow) mainWindow.webContents.send('clipboard-update', charaName, text, translation.text);
 		});
 	})();
