@@ -1,7 +1,15 @@
 'use strict';
-const {app, clipboard, ipcMain} = require('electron');
-const fs = require('fs');
 const path = require('path');
+module.paths.push(path.resolve('node_modules'));
+module.paths.push(path.resolve('../node_modules'));
+module.paths.push(path.resolve(__dirname, '..', '..', 'electron', 'node_modules'));
+module.paths.push(path.resolve(__dirname, '..', '..', 'electron.asar', 'node_modules'));
+module.paths.push(path.resolve(__dirname, '..', '..', 'app', 'node_modules'));
+module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'));
+
+const {app, clipboard, dialog, ipcMain} = require('electron');
+const fs = require('fs');
+const request = require('request');
 const translate = require('google-translate-api');
 const window = require('electron-window');
 
@@ -24,7 +32,8 @@ let createMainWindow = () => {
 		alwaysOnTop: true,
 		transparent: true,
 		frame: false,
-		toolbar: false
+		toolbar: false,
+		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico')
 	});
 
 	win.showUrl(path.join(__dirname, 'app', 'index.html'), config);
@@ -39,7 +48,8 @@ let createMainWindow = () => {
 let createPrefWindow = () => {
 	const win = window.createWindow({
 		width: 600,
-		height: 600
+		height: 600,
+		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico')
 	});
 
 	win.setMenu(null);
@@ -110,3 +120,15 @@ let processUpdate = () => {
 	setTimeout(processUpdate, 100);
 };
 processUpdate();
+
+request('https://raw.githubusercontent.com/HelloWorld017/acacia/master/package.json', (err, resp, body) => {
+	if(JSON.parse(body).version !== require('./package').version){
+		if(mainWindow) dialog.showMessageBox(mainWindow, {
+			type: 'info',
+			buttons: ['확인'],
+			defaultId: 0,
+			title: '업데이트가 사용 가능합니다.',
+			message: '새로운 아카시아가 배포된 것을 확인했습니다.\nhttps://github.com/HelloWorld017/acacia/releases 에서 새 버젼을 다운받아주세요!\n업데이트 시 configurations 폴더를 옮기는 것을 잊지마세요!'
+		});
+	}
+});

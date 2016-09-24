@@ -1,8 +1,8 @@
 {
   "name": "acacia",
-  "productName": "Acacia",
-  "version": "0.0.1",
-  "description": "Watches clipboard update and translate as google, show to transparent window.",
+  "productName": "acacia",
+  "version": "0.0.2",
+  "description": "Watches clipboard update, translates with google and shows to transparent window.",
   "license": "MIT",
   "repository": "HelloWorld017/acacia",
   "author": {
@@ -13,7 +13,7 @@
   "scripts": {
     "test": "xo",
     "start": "electron .",
-    "build": "electron-packager . --out=dist --asar --overwrite --all"
+    "build": "electron-packager . acacia --out=dist --asar --overwrite --platform=win32 --arch=ia32 --icon=acacia.ico --app-bundle-id=acacia --helper-bundle-id=acacia --version-string.CompanyName=Khinenw --version-string.ProductName=acacia --version-string.FileDescription=\"실시간 일본어 구글번역기\" --version-string.LegalCopyright=\"Copyright (C) 2016 Khinenw. All rights reserved.\" --version-string.ProductVersion=0.0.2 --version-string.FileVersion=0.0.2 --version-string.InternalName=acacia --version-string.OriginalFilename=acacia"
   },
   "files": [
     "index.js",
@@ -27,7 +27,8 @@
   "dependencies": {
     "electron-debug": "^1.0.0",
     "electron-window": "^0.8.1",
-    "google-translate-api": "^2.2.2"
+    "google-translate-api": "^2.2.2",
+    "request": "^2.75.0"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
