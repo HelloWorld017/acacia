@@ -1,7 +1,7 @@
 {
   "name": "acacia",
   "productName": "acacia",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Watches clipboard update, translates with google and shows to transparent window.",
   "license": "MIT",
   "repository": "HelloWorld017/acacia",
@@ -28,7 +28,8 @@
     "electron-debug": "^1.0.0",
     "electron-window": "^0.8.1",
     "google-translate-api": "^2.2.2",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "text-encoding": "^0.6.1"
   },
   "devDependencies": {
     "devtron": "^1.1.0",

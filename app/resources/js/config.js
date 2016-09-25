@@ -4,8 +4,6 @@ app.controller('textControl', ($scope) => {
 		prev.push(curr + 'Border', curr + 'BorderSize', curr + 'Text', curr + 'Toggle', curr + 'FontName', curr + 'FontSize');
 		return prev;
 	}, []).forEach((v) => {
-		console.log(v);
-		console.log(__args__[v]);
 		$scope[v] = __args__[v];
 		$scope.$watch(v, () => {
 			ipcRenderer.send('update-config', v, $scope[v]);
@@ -14,7 +12,8 @@ app.controller('textControl', ($scope) => {
 });
 
 app.controller('toggleControl', ($scope) => {
-	['click'].map((v) => v + 'Toggle').forEach((v) => {
+	['click', 'buerg'].map((v) => v + 'Toggle').forEach((v) => {
+		$scope[v] = __args__[v];
 		$scope.$watch(v, () => {
 			ipcRenderer.send(v, $scope[v]);
 		});

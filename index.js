@@ -10,12 +10,16 @@ module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'
 const {app, clipboard, dialog, ipcMain} = require('electron');
 const fs = require('fs');
 const request = require('request');
+const {TextEncoder, TextDecoder} = require('text-encoding');
 const translate = require('google-translate-api');
 const window = require('electron-window');
 
 let readConfig = (path) => {
 	return JSON.parse(fs.readFileSync(path));
 };
+
+let te = new TextEncoder('euc-kr', {NONSTANDARD_allowLegacyEncoding: true});
+let td = new TextDecoder('shift-jis');
 
 let config = readConfig('./configurations/config.json');
 let dict = readConfig('./configurations/dictionary.json');
@@ -71,16 +75,26 @@ app.on('ready', () => {
 	prefWindow = createPrefWindow();
 });
 
-ipcMain.on('clickToggle', (ev, newClickable) => {
-	if(newClickable === null) return;
-	if(mainWindow) mainWindow.setIgnoreMouseEvents(newClickable);
-});
-
-ipcMain.on('update-config', (ev, key, value) => {
+let configUpdate = (key, value) => {
 	if(key === null || value === null) return;
 	config[key] = value;
 	fs.writeFileSync('./configurations/config.json', JSON.stringify(config, null, '\t'));
 	if(mainWindow) mainWindow.webContents.send('update-config', key, value);
+};
+
+ipcMain.on('clickToggle', (ev, newClickable) => {
+	if(newClickable === null) return;
+	if(mainWindow) mainWindow.setIgnoreMouseEvents(newClickable);
+
+	configUpdate('clickToggle', newClickable);
+});
+
+ipcMain.on('buergToggle', (ev, newConvert) => {
+	configUpdate('buergToggle', newConvert);
+});
+
+ipcMain.on('update-config', (ev, ...args) => {
+	configUpdate(...args);
 });
 
 let lastText = clipboard.readText();
@@ -92,6 +106,9 @@ let processUpdate = () => {
 		if(typeof rtext !== 'string') return;
 		if(Date.now() - lastTime < 250) return;
 		if(!mainWindow) return;
+		if(config.buergToggle){
+			rtext = td.decode(te.encode(rtext));
+		}
 
 		lastText = rtext;
 		lastTime = Date.now();
