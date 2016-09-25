@@ -12,10 +12,11 @@ app.controller('textControl', ($scope) => {
 });
 
 app.controller('toggleControl', ($scope) => {
-	['click', 'buerg'].map((v) => v + 'Toggle').forEach((v) => {
+	['click', 'buerg', 'fixedChara'].map((v) => v + 'Toggle').forEach((v) => {
 		$scope[v] = __args__[v];
 		$scope.$watch(v, () => {
-			ipcRenderer.send(v, $scope[v]);
+			if(v === 'clickToggle') ipcRenderer.send(v, $scope[v]);
+			else ipcRenderer.send('update-config', v, $scope[v]);
 		});
 	});
 });

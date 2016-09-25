@@ -89,10 +89,6 @@ ipcMain.on('clickToggle', (ev, newClickable) => {
 	configUpdate('clickToggle', newClickable);
 });
 
-ipcMain.on('buergToggle', (ev, newConvert) => {
-	configUpdate('buergToggle', newConvert);
-});
-
 ipcMain.on('update-config', (ev, ...args) => {
 	configUpdate(...args);
 });
@@ -115,12 +111,13 @@ let processUpdate = () => {
 
 		//let split = rtext.split(/(?:\r\n|\n|\r)/g);
 		let split = rtext.split(/(\s|[＂（［｛‘“〔〈《「『【])/);
-		let charaName = (split.length >= 3 && charaDB[split[0]] !== undefined) ? split.shift() : '';
-		let text = rtext;
+		let charaName = (split.length >= 3 && (config.fixedCharaToggle || charaDB[split[0]] !== undefined)) ? split.shift() : '';
 		if(charaName !== ''){
-			text = text.replace(charaName, '');
-			charaName = charaDB[charaName];
+			rtext = rtext.replace(charaName, '');
+			charaName = charaDB[charaName] || charaName;
 		}
+
+		let text = rtext;
 
 		charaDBKeys.forEach((k) => {
 			text = text.split(k).join(charaDB[k]);
@@ -130,8 +127,8 @@ let processUpdate = () => {
 			text = text.split(k).join(dict[k]);
 		});
 
-		translate(text, {from: 'ja', to: 'ko'}).then((translation) => {
-			if(mainWindow) mainWindow.webContents.send('clipboard-update', charaName, text, translation.text);
+		translate(text, {from: config.translate_from, to: config.translate_to}).then((translation) => {
+			if(mainWindow) mainWindow.webContents.send('clipboard-update', charaName, rtext, translation.text);
 		});
 	})();
 	setTimeout(processUpdate, 100);

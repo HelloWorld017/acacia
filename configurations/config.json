@@ -16,5 +16,10 @@
 	"scriptText": "#ffffff",
 	"scriptToggle": true,
 	"scriptFontName": "Nanum Barun Gothic",
-	"scriptFontSize": 12
+	"scriptFontSize": 12,
+	"clickToggle": false,
+	"buergToggle": false,
+	"fixedCharaToggle": true,
+	"translate_from": "ja",
+	"translate_to": "ko"
 }
