@@ -18,7 +18,7 @@
 }
 ```
 의 형식으로 입력하시면 됩니다.  
-참조: 캐릭터명은 번역된 캐릭터명으로 먼저 대체된 후에 번역됩니다.
+참고: 캐릭터명은 번역된 캐릭터명으로 먼저 대체된 후에 번역됩니다.
 
 ## 사용자 사전 추가하기
 configurations/dictionary.json 을 편집하시면 됩니다.
@@ -31,4 +31,5 @@ configurations/dictionary.json 을 편집하시면 됩니다.
 의 형식으로 입력하시면 먼저 사전의 값으로 대체된 후에 번역됩니다.
 
 ## 스크린샷
-![스크린샷](http://i.imgur.com/XtzZZnO.jpg)
+![스크린샷](http://i.imgur.com/mqMh3bs.jpg)
+
