@@ -1,17 +1,10 @@
 'use strict';
-const path = require('path');
-module.paths.push(path.resolve('node_modules'));
-module.paths.push(path.resolve('../node_modules'));
-module.paths.push(path.resolve(__dirname, '..', '..', 'electron', 'node_modules'));
-module.paths.push(path.resolve(__dirname, '..', '..', 'electron.asar', 'node_modules'));
-module.paths.push(path.resolve(__dirname, '..', '..', 'app', 'node_modules'));
-module.paths.push(path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'));
-
 const {app, clipboard, dialog, ipcMain} = require('electron');
 const fs = require('fs');
+const path = require('path');
 const request = require('request');
 const {TextEncoder, TextDecoder} = require('text-encoding');
-const translate = require('google-translate-api');
+const translate = require('@k3rn31p4nic/google-translate-api');
 const window = require('electron-window');
 
 let readConfig = (path) => {
