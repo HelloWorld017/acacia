@@ -1,6 +1,8 @@
 const {ipcRenderer} = require('electron');
+const querystring = require('querystring');
 
-let config = __args__;
+const query = querystring.parse(location.search.replace(/^\?/, ''));
+let config = JSON.parse(query['config']);
 let watchers = {};
 
 let elements = {

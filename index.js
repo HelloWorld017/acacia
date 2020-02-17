@@ -1,11 +1,10 @@
 'use strict';
-const {app, clipboard, dialog, ipcMain} = require('electron');
+const {app, clipboard, dialog, ipcMain, BrowserWindow} = require('electron');
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
 const {TextEncoder, TextDecoder} = require('text-encoding');
 const translate = require('@k3rn31p4nic/google-translate-api');
-const window = require('electron-window');
 
 let readConfig = (path) => {
 	return JSON.parse(fs.readFileSync(path));
@@ -23,17 +22,19 @@ let charaDBKeys = Object.keys(charaDB);
 let mainWindow, prefWindow;
 
 let createMainWindow = () => {
-	const win = window.createWindow({
+	const win = new BrowserWindow({
 		width: 700,
 		height: 200,
 		alwaysOnTop: true,
 		transparent: true,
 		frame: false,
 		toolbar: false,
-		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico')
+		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico'),
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
-
-	win.showUrl(path.join(__dirname, 'app', 'index.html'), config);
+	win.loadFile(path.join(__dirname, 'app', 'index.html'), { query: { config: JSON.stringify(config) } });
 	win.on('closed', () => {
 		app.quit();
 		mainWindow = undefined;
@@ -43,14 +44,17 @@ let createMainWindow = () => {
 };
 
 let createPrefWindow = () => {
-	const win = window.createWindow({
+	const win = new BrowserWindow({
 		width: 600,
 		height: 600,
-		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico')
+		icon: path.join(__dirname, 'app', 'resources', 'images', 'acacia.ico'),
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
 
 	win.setMenu(null);
-	win.showUrl(path.join(__dirname, 'app', 'config.html'), config);
+	win.loadFile(path.join(__dirname, 'app', 'config.html'), { query: { config: JSON.stringify(config) } });
 	win.on('closed', () => {
 		prefWindow = undefined;
 	});
